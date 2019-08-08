@@ -1,0 +1,33 @@
+body{
+    background:#c4c1c1;
+    font-family: 'Poppins', sans-serif;
+    color:#333;
+}
+.container{
+    width:80%;
+    margin:auto;
+    background: #f1f1f1;
+    box-shadow: 5px 5px 3px 3px #888888;
+    padding:15px;
+}
+ul{
+    display: flex;
+    list-style: none;
+    float:right;
+}
+li{
+    padding : 5px 10px;
+    
+    text-align: right;
+}
+li a{
+    text-decoration: none;
+}
+#branding{
+    background: url('../landing.jpg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    min-height: 60vh;
+    background-position: center top;
+
+}

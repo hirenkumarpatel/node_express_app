@@ -22,10 +22,27 @@ const app=express();
 const path=require('path');
 
 //configuring request,responce values to create server and output data to browser in callback function
+/*
 app.get('/',(req,res)=>{
 
     //output to browser
     res.sendFile(path.join(__dirname,'public','index.html'));
+});
+*/
+
+//creating static folder which allows all html,images,css files to share in server withing static folder
+app.use(express.static(path.join(__dirname,'public')));
+
+//working with rest api and json data (as we are accesing from database)
+const users=[
+    {id:1,name:"Hiren Patel",email:"hiren@gmail.com"},
+    {id:2,name:"Jason Bourne",email:"jason@gmail.com"},
+    {id:3,name:"Adam Smith",email:"adam@gmail.com"}
+];
+
+//accessing json data through api/users route
+app.get('/api/users',(req,res)=>{
+    res.json(users);
 });
 
 //initialize port either default for local env or dynamic on live server
