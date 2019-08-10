@@ -34,11 +34,7 @@ app.get('/',(req,res)=>{
 app.use(express.static(path.join(__dirname,'public')));
 
 //working with rest api and json data (as we are accesing from database)
-const users=[
-    {id:1,name:"Hiren Patel",email:"hiren@gmail.com"},
-    {id:2,name:"Jason Bourne",email:"jason@gmail.com"},
-    {id:3,name:"Adam Smith",email:"adam@gmail.com"}
-];
+const users= require('./users');
 
 //accessing json data through api/users route
 app.get('/api/users',(req,res)=>{
