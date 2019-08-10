@@ -10,6 +10,8 @@
     "dev":"nodemon index"
   },
   to run the app 'npm run dev' and run the dev script
+ * separating users get request in routes->api folder to create router for similar kind of routes  
+ * while entering new users from rest api postman, in order to generate unique id, install uuid module via 'npm i -D uuid'
  */
 
 //impoerting express module we installed
@@ -24,9 +26,6 @@ const path = require("path");
 //importing logger function
 const logger = require("./middleware/logger");
 
-//import users.js file
-const users = require("./users");
-
 //configuring request,responce values to create server and output data to browser in callback function
 /*
 app.get('/',(req,res)=>{
@@ -36,29 +35,21 @@ app.get('/',(req,res)=>{
 });
 */
 
+//BodyParser Middleware to handle Row JSON from input
+app.use(express.json());
+
+//URLEncoded Middleware to parse encoded url for input from form submission
+app.use(express.urlencoded({extended:false}));
+
 // or creating static folder which allows all html,images,css files to share in server withing static folder
 app.use(express.static(path.join(__dirname, "public")));
+
+//users api router to change the route by importing users route in file
+app.use('/api/users',require('./routes/api/users'));
 
 //Init middleware that will log loggin url information
 app.use(logger);
 
-//get all users (accessing json data through api/users route)
-app.get("/api/users", (req, res) => {
-  res.json(users);
-});
-
-//get single user from users.js rest api
-app.get("/api/users/:id", (req, res) => {
-  // some() method returns boolean true/false based on if any result return value or false- req.params.id is used for retriving id
-  const found = users.some(user => user.id === parseInt(req.params.id));
-  if (found) {
-    //we will use filter method to filter as per id param from rest api
-    res.json(users.filter(user => user.id === parseInt(req.params.id)));
-  } else {
-    //set status to not found(400) and give error
-    res.status(400).json({ Error: "User not found!" });
-  }
-});
 //initialize port either default for local env or dynamic on live server
 const port = process.env.PORT || 8080;
 
