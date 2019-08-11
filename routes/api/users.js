@@ -48,6 +48,7 @@ router.get("/:id", (req, res) => {
  * @param route to file
  * @param callbackFuntion
  * get data in getpostman with header('Content-Type':'application/json')
+ * actual route is /api/users which was replaced in index.js
  */
 router.post('/',(req,res)=>{
   
@@ -59,11 +60,12 @@ router.post('/',(req,res)=>{
   }
 
   //validating for empty values
-  if(newUser.name || newUser.email){
+  if(!newUser.name || !newUser.email){
     return res.status(400).json({Error:'Please include Name and Email..'});
   }
   //push new value to users array
   users.push(newUser);
+  res.json({'id':newUser.id,'name':newUser.name,'Email':newUser.email,'Message':'New User Inserted!'});
 });
 
 module.exports= router;
