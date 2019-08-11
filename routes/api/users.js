@@ -94,5 +94,24 @@ router.put("/:id", (req, res) => {
   }
 });
 
+/** Delete user from users.js rest api
+ * @param route to file
+ * @param callbackFuntion
+ * since we used router in index, replace router.get("/api/users/:id")
+ *
+ */
+router.delete("/:id", (req, res) => {
+  // some() method returns boolean true/false based on if any result return value or false- req.params.id is used for retriving id
+  const found = users.some(user => user.id === parseInt(req.params.id));
+
+  if (found) {
+    //we will use filter method to filter as per id param from rest api
+    res.json({Message:'User Deletetd!',users: users.filter(user => user.id !== parseInt(req.params.id))});
+  } else {
+    //set status to not found(400) and give error
+    res.status(400).json({ Error: "User not found!" });
+  }
+});
+
 //export new route
 module.exports = router;
